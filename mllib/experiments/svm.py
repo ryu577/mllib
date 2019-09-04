@@ -39,4 +39,18 @@ gb = groebner([Eq(a0**2+a1**2+a2**2,1),
        Eq(a2*(u*w1+v*w2+b-g),0),
        Eq(u-v,0)], [u,v, g, a0,a1,a2,beta,k0,k1,k2, b, w1, w2])
 
+w0, w1, b, a0,a1,a2,k0,k1,k2,u,v = symbols('w0 w1 b a0 a1 a2 k0 k1 k2 u v')
+
+
+gb = solve([Eq(a0**2+a1**2+u*a2**2,w0),
+               Eq(a0**2+a1**2+v*a2**2,w1),
+               Eq(a0**2+a2**2,a1**2),
+               Eq(a0**2-a1**2+a2**2,0),
+               Eq(w0+w1+b-1,k0**2),
+               Eq(w0+w1-b-1,k1**2),
+               Eq(u*w0+v*w1+b-1,k2**2),
+               Eq(a0*(w0+w1+b-1),0),
+               Eq(a1*(w0+w1-b-1),0),
+               Eq(a2*(u*w0+v*w1+b-1),0),
+               Eq(u,v)], [u,v, a0,a1,a2,k0,k1,k2, b, w0, w1])
 
