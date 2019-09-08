@@ -41,16 +41,39 @@ gb = groebner([Eq(a0**2+a1**2+a2**2,1),
 
 w0, w1, b, a0,a1,a2,k0,k1,k2,u,v = symbols('w0 w1 b a0 a1 a2 k0 k1 k2 u v')
 
+## Three points, [[1,1],[-1,-1],[u,v]]; y: [1,-1,1]
+soln = solve([
+            Eq(a0**2+a1**2+u*a2**2,w0),
+            Eq(a0**2+a1**2+v*a2**2,w1),
+            Eq(a0**2+a2**2,a1**2),
+            Eq(w0+w1+b-1,k0**2),
+            Eq(w0+w1-b-1,k1**2),
+            Eq(u*w0+v*w1+b-1,k2**2),
+            Eq(a0**2*k0**2,0),
+            Eq(a1**2*k1**2,0),
+            Eq(a2**2*k2**2,0),
+            Eq(u,v),
+            Eq(u,2)
+        ], [u,v, a0,a1,a2,k0,k1,k2, b, w0, w1])
 
-gb = solve([Eq(a0**2+a1**2+u*a2**2,w0),
-               Eq(a0**2+a1**2+v*a2**2,w1),
-               Eq(a0**2+a2**2,a1**2),
-               Eq(a0**2-a1**2+a2**2,0),
-               Eq(w0+w1+b-1,k0**2),
-               Eq(w0+w1-b-1,k1**2),
-               Eq(u*w0+v*w1+b-1,k2**2),
-               Eq(a0*(w0+w1+b-1),0),
-               Eq(a1*(w0+w1-b-1),0),
-               Eq(a2*(u*w0+v*w1+b-1),0),
-               Eq(u,v)], [u,v, a0,a1,a2,k0,k1,k2, b, w0, w1])
+## Two points, [[1,1],[-1,-1]]; y: [1,-1]
+gb = groebner([
+            Eq(a0**2+a1**2,w0),
+            Eq(a0**2+a1**2,w1),
+            Eq(a0,a1),
+            Eq(w0+w1+b-1,k0**2),
+            Eq(w0+w1-b-1,k1**2),
+            Eq(a0*k0,0),
+            Eq(a1*k1,0)
+        ], [u,v, a0,a1,a2,k0,k1,k2, b, w0, w1])
+
+
+## Three points, simplified form.
+gb = groebner([
+            Eq(2*a0**2+(1+u)*a2**2,w0),
+            Eq((k0/2)**2+1/2,w0),
+            Eq( k2**2+2,2*(u+1)*w0 ),
+            Eq(a0*k0,0),
+            Eq(a2*k2,0)            
+        ], [a0,a2,w0, u, k0,k2])
 
